@@ -1,25 +1,93 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./Header";
+import "./styles.css";
+import Heading from "./Heading";
+import Mainprogram from "./Mainprogram";
+import { useEffect, useState } from "react";
 
-function App() {
+const products=[
+  {
+    cardName:"Fancy Product",
+    Amount:"$40.00 - $80.00",
+    footer:"View options",
+    isAdded:false
+  },
+  {
+    cardName:"Special Item",
+    Amount:"$18.00",
+    mutedAmount:"$20.00",
+    footer:"Add to cart",
+    saleTag:"Sale",
+    isAdded:false
+  },
+  {
+  cardName:"Sale Item",
+  Amount:"$25.00",
+  mutedAmount:"$50.00",
+  footer:"Add to cart",
+  saleTag:"Sale",
+  isAdded:false
+  },
+  {
+  cardName:"Popular Item", 
+  Amount:"$40.00", 
+  footer:"Add to cart",
+  isAdded:false 
+  },
+  {
+  cardName:"Sale Item",
+  Amount:"$25.00",
+  mutedAmount:"$50.00",
+  footer:"Add to cart",
+  saleTag:"Sale",
+  isAdded:false
+  },
+  {
+  cardName:"Fancy Product",
+  Amount:"$120.00 - $280.00",
+  footer:"View options",
+  isAdded:false
+  },
+  {
+  cardName:"Special Item",
+  Amount:"$18.00",
+  mutedAmount:"$20.00",
+  footer:"Add to cart",
+  saleTag:"Sale",
+  isAdded:false
+  },
+  {
+  cardName:"Popular Item", 
+  Amount:"$40.00", 
+  footer:"Add to cart",
+  isAdded:false 
+  }
+]
+const App = () => {
+  const[count,setCount]=useState(0)
+  const[productList,setProductList]=useState(products);
+  const handleClick = (index) =>{
+    let updatedobj={...productList[index], isAdded: !productList[index].isAdded}
+    productList[index]=updatedobj;
+    let updatedProductList=productList;
+    setProductList(updatedProductList)
+    if(updatedProductList[index].isAdded){
+      setCount(count+1)
+    }
+    else{
+      setCount(count-1)
+    }
+
+  }
+  useEffect(()=>{
+    console.log(productList)
+  },[productList])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header count={count}/>
+      <Heading />
+      <Mainprogram handleClick={handleClick} productList={productList}/>
     </div>
   );
-}
-
+};
 export default App;
+
